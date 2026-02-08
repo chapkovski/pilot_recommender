@@ -1,5 +1,4 @@
 {
-  "title": "Exit Questionnaire",
   "showQuestionNumbers": "off",
   "showProgressBar": "top",
   "progressBarType": "pages",
@@ -12,7 +11,7 @@
         {
           "type": "text",
           "name": "age",
-          "title": "D1. Age: Please enter your age in years. (Must be 18+)",
+          "title": "Age: Please enter your age in years. (Must be 18+)",
           "inputType": "number",
           "isRequired": true,
           "min": 18,
@@ -26,7 +25,7 @@
         {
           "type": "radiogroup",
           "name": "gender",
-          "title": "D2. Gender",
+          "title": "Gender",
           "isRequired": true,
           "choices": [
             "Woman",
@@ -43,18 +42,8 @@
         {
           "type": "text",
           "name": "country_residence",
-          "title": "D3. Country of residence",
+          "title": "Country of residence",
           "isRequired": true
-        }
-      ]
-    },
-    {
-      "name": "d4",
-      "elements": [
-        {
-          "type": "text",
-          "name": "citizenship",
-          "title": "D4. Citizenship (optional)"
         }
       ]
     },
@@ -64,7 +53,7 @@
         {
           "type": "radiogroup",
           "name": "education",
-          "title": "D5. Highest completed education",
+          "title": "Highest completed education",
           "isRequired": true,
           "choices": [
             "Less than high school",
@@ -85,7 +74,7 @@
         {
           "type": "radiogroup",
           "name": "political_self_placement",
-          "title": "P1. Left-Right self-placement: In politics people sometimes talk of left and right. Where would you place yourself?",
+          "title": "Left-Right self-placement: In politics people sometimes talk of left and right. Where would you place yourself?",
           "isRequired": true,
           "choices": [
             "0",
@@ -110,7 +99,7 @@
         {
           "type": "radiogroup",
           "name": "political_interest",
-          "title": "P2. How interested are you in politics? (1 = Not at all, 7 = Very interested)",
+          "title": "How interested are you in politics? (1 = Not at all, 7 = Very interested)",
           "isRequired": true,
           "choices": [
             "1",
@@ -130,7 +119,7 @@
         {
           "type": "radiogroup",
           "name": "party_identification",
-          "title": "P3. Do you identify with a political party or movement?",
+          "title": "Do you identify with a political party or movement?",
           "isRequired": true,
           "choices": [
             "Yes",
@@ -158,7 +147,7 @@
         {
           "type": "radiogroup",
           "name": "attention_check",
-          "title": "Q1. Attention check: To show you are paying attention, please select option 3 for this question.",
+          "title": "Attention check: To show you are paying attention, please select option 3 for this question.",
           "isRequired": true,
           "choices": [
             "1",
@@ -178,7 +167,7 @@
         {
           "type": "radiogroup",
           "name": "seriousness_check",
-          "title": "Q2. Did you answer the questions carefully and honestly?",
+          "title": "Did you answer the questions carefully and honestly?",
           "isRequired": true,
           "choices": [
             "Yes",
@@ -194,7 +183,7 @@
         {
           "type": "radiogroup",
           "name": "prediction_strategy",
-          "title": "S1. How did you make your predictions about the average participant?",
+          "title": "How did you make your predictions about the average participant?",
           "isRequired": true,
           "choices": [
             "I mostly reported my own impression",
@@ -223,7 +212,7 @@
         {
           "type": "comment",
           "name": "comments",
-          "title": "F1. Any comments about the study? (optional)"
+          "title": "Any comments about the study? (optional)"
         }
       ]
     }

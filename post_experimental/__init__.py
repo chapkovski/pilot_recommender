@@ -52,35 +52,31 @@ class Group(BaseGroup):
 
 class Player(BasePlayer):
     age = models.IntegerField(
-        label='D1. Age (in years)',
+        label='Age (in years)',
         min=18,
         max=120,
     )
     gender = models.StringField(
-        label='D2. Gender',
+        label='Gender',
         choices=C.GENDER_CHOICES,
     )
-    country_residence = models.StringField(label='D3. Country of residence')
-    citizenship = models.StringField(
-        label='D4. Citizenship (optional)',
-        blank=True,
-    )
+    country_residence = models.StringField(label='Country of residence')
     education = models.StringField(
-        label='D5. Highest completed education',
+        label='Highest completed education',
         choices=C.EDUCATION_CHOICES,
     )
     political_self_placement = models.StringField(
-        label='P1. Left-Right self-placement',
+        label='Left-Right self-placement',
         choices=[[str(i), str(i)] for i in range(11)]
         + [['Prefer not to say', 'Prefer not to say']],
     )
     political_interest = models.IntegerField(
-        label='P2. How interested are you in politics?',
+        label='How interested are you in politics?',
         choices=[[i, str(i)] for i in range(1, 8)],
         widget=widgets.RadioSelect,
     )
     party_identification = models.StringField(
-        label='P3. Do you identify with a political party or movement?',
+        label='Do you identify with a political party or movement?',
         choices=C.YES_NO_PNS,
     )
     party_identification_text = models.StringField(
@@ -88,16 +84,16 @@ class Player(BasePlayer):
         blank=True,
     )
     attention_check = models.IntegerField(
-        label='Q1. Attention check: To show you are paying attention, please select option 3 for this question.',
+        label='Attention check: To show you are paying attention, please select option 3 for this question.',
         choices=[[i, str(i)] for i in range(1, 8)],
         widget=widgets.RadioSelect,
     )
     seriousness_check = models.StringField(
-        label='Q2. Did you answer the questions carefully and honestly?',
+        label='Did you answer the questions carefully and honestly?',
         choices=C.YES_NO_PNS,
     )
     prediction_strategy = models.StringField(
-        label='S1. How did you make your predictions about the average participant?',
+        label='How did you make your predictions about the average participant?',
         choices=C.STRATEGY_CHOICES,
     )
     prediction_strategy_other = models.StringField(
@@ -105,7 +101,7 @@ class Player(BasePlayer):
         blank=True,
     )
     comments = models.LongStringField(
-        label='F1. Any comments about the study? (optional)',
+        label='Any comments about the study? (optional)',
         blank=True,
     )
 
@@ -136,7 +132,6 @@ class ExitQuestionnaire(SurveyJSPage):
         self.player.age = int(data['age'])
         self.player.gender = data['gender']
         self.player.country_residence = data['country_residence'].strip()
-        self.player.citizenship = data.get('citizenship', '').strip()
         self.player.education = data['education']
         self.player.political_self_placement = str(data['political_self_placement'])
         self.player.political_interest = int(data['political_interest'])
