@@ -6,7 +6,8 @@ Movie {{ movie_number }} of {{ total_movies }}
 <link href="https://unpkg.com/survey-jquery@1.12.18/defaultV2.min.css" rel="stylesheet">
 <style>
     .movie-card {
-        max-width: 760px;
+        max-width: none;
+        height: 100%;
         border: 1px solid #d6d9dd;
     }
 
@@ -27,7 +28,7 @@ Movie {{ movie_number }} of {{ total_movies }}
     }
 
     .survey-card {
-        max-width: 860px;
+        max-width: none;
         border: 1px solid #d6d9dd;
     }
 
@@ -115,23 +116,26 @@ Movie {{ movie_number }} of {{ total_movies }}
     <span class="badge text-bg-primary">Movie {{ movie_number }} of {{ total_movies }}</span>
 </div>
 
-<div class="card movie-card shadow-sm mx-auto">
-    <div class="card-body text-center p-4">
-        <h3 class="mb-1">{{ movie.title }}</h3>
-        
+<div class="row g-4 align-items-start">
+    <div class="col-12 col-lg-6">
+        <div class="card movie-card shadow-sm">
+            <div class="card-body text-center p-4">
+                <h3 class="mb-1">{{ movie.title }}</h3>
+                <img src="{{ movie_image_url }}" alt="{{ movie.title }} poster" class="movie-poster img-fluid">
 
-        <img src="{{ movie_image_url }}" alt="{{ movie.title }} poster" class="movie-poster img-fluid">
-
-        <div class="synopsis-box mx-auto mt-4 p-3 text-start">
-            <div class="text-uppercase fw-semibold text-primary small mb-2">Movie Description</div>
-            <p class="mb-0">{{ movie.synopsis }}</p>
+                <div class="synopsis-box mx-auto mt-4 p-3 text-start">
+                    <div class="text-uppercase fw-semibold text-primary small mb-2">Movie Description</div>
+                    <p class="mb-0">{{ movie.synopsis }}</p>
+                </div>
+            </div>
         </div>
     </div>
-</div>
-
-<div class="card survey-card shadow-sm mx-auto mt-4">
-    <div class="card-body p-4">
-        <div id="surveyContainer"></div>
+    <div class="col-12 col-lg-6">
+        <div class="card survey-card shadow-sm">
+            <div class="card-body p-4">
+                <div id="surveyContainer"></div>
+            </div>
+        </div>
     </div>
 </div>
 
@@ -154,6 +158,19 @@ Movie {{ movie_number }} of {{ total_movies }}
             .replace(/<gray>(.*?)<\/gray>/g, "<span style=\"color:#6c757d;\">$1</span>")
             .replace(/<red>(.*?)<\/red>/g, "<span style=\"color:#dc3545;\">$1</span>")
             .replace(/\*(.*?)\*/g, "<em>$1</em>");
+    });
+
+    function scrollToTopOnMobile() {
+        if (!window.matchMedia("(max-width: 991.98px)").matches) {
+            return;
+        }
+        window.scrollTo({top: 0, behavior: "smooth"});
+        document.documentElement.scrollTop = 0;
+        document.body.scrollTop = 0;
+    }
+
+    survey.onCurrentPageChanged.add(function () {
+        window.setTimeout(scrollToTopOnMobile, 0);
     });
 
     survey.onComplete.add(function (sender) {
