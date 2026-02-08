@@ -1,0 +1,34 @@
+{{ block title }}
+Instructions
+{{ endblock }}
+
+{{ block content }}
+<p>
+    You will see <strong>{{ C.NUM_ROUNDS }}</strong> fictional movie concepts (poster + short synopsis).
+    For each movie, your task is to estimate what the <strong>average participant</strong> would answer.
+    Please do not answer with your own opinion unless that is part of your prediction strategy.
+</p>
+
+<p>There are no right or wrong answers. Try to be as close as possible to the group average.</p>
+
+<p><strong>Duration and payment (from study document):</strong></p>
+<ul>
+    <li>Estimated duration: about 30 minutes.</li>
+    <li>Base payment: 1.50.</li>
+    <li>Bonus: up to 2.00 based on accuracy.</li>
+</ul>
+
+<p>
+    On each movie page, you will answer:
+</p>
+<ol>
+    <li>Which political group is more likely to enjoy the movie.</li>
+    <li>Confidence in that guess.</li>
+    <li>Political vibe of the movie concept.</li>
+    <li>Confidence in that answer.</li>
+</ol>
+
+<p>After the last movie, you will complete a short exit questionnaire.</p>
+
+{{ next_button }}
+{{ endblock }}
