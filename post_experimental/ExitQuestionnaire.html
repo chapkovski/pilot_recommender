@@ -1,33 +1,12 @@
 {{ block title }}
-Movie {{ movie_number }} of {{ total_movies }}
+Exit Questionnaire
 {{ endblock }}
 
 {{ block styles }}
 <link href="https://unpkg.com/survey-jquery@1.12.18/defaultV2.min.css" rel="stylesheet">
 <style>
-    .movie-card {
-        max-width: 760px;
-        border: 1px solid #d6d9dd;
-    }
-
-    .movie-poster {
-        max-width: 320px;
-        width: 100%;
-        border: 2px solid #cfd4da;
-        border-radius: 10px;
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.18);
-    }
-
-    .synopsis-box {
-        max-width: 640px;
-        background: #f8f9fa;
-        border: 1px solid #d6d9dd;
-        border-radius: 10px;
-        box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.6);
-    }
-
-    .survey-card {
-        max-width: 860px;
+    .exit-card {
+        max-width: 900px;
         border: 1px solid #d6d9dd;
     }
 
@@ -99,37 +78,11 @@ Movie {{ movie_number }} of {{ total_movies }}
         cursor: default;
         pointer-events: none;
     }
-
-    #surveyContainer .sv-root-modern,
-    #surveyContainer .sd-root-modern {
-        --sjs-general-backcolor: transparent;
-        --sjs-general-backcolor-dim-light: transparent;
-        --sjs-general-backcolor-dim-dark: transparent;
-        background-color: transparent;
-    }
 </style>
 {{ endblock }}
 
 {{ block content }}
-<div class="text-center mb-3">
-    <span class="badge text-bg-primary">Movie {{ movie_number }} of {{ total_movies }}</span>
-</div>
-
-<div class="card movie-card shadow-sm mx-auto">
-    <div class="card-body text-center p-4">
-        <h3 class="mb-1">{{ movie.title }}</h3>
-        <p class="text-secondary mb-3">{{ movie.category }}</p>
-
-        <img src="{{ movie_image_url }}" alt="{{ movie.title }} poster" class="movie-poster img-fluid">
-
-        <div class="synopsis-box mx-auto mt-4 p-3 text-start">
-            <div class="text-uppercase fw-semibold text-primary small mb-2">Movie Description</div>
-            <p class="mb-0">{{ movie.synopsis }}</p>
-        </div>
-    </div>
-</div>
-
-<div class="card survey-card shadow-sm mx-auto mt-4">
+<div class="card exit-card shadow-sm mx-auto">
     <div class="card-body p-4">
         <div id="surveyContainer"></div>
     </div>
@@ -141,19 +94,16 @@ Movie {{ movie_number }} of {{ total_movies }}
 {{ block scripts }}
 <script src="https://unpkg.com/jquery@3.7.1/dist/jquery.min.js"></script>
 <script src="https://unpkg.com/survey-jquery@1.12.18/survey.jquery.min.js"></script>
-<script id="movieSurveyJson" type="application/json">{{ include '_static/movie_survey.json' }}</script>
+<script id="exitSurveyJson" type="application/json">{{ include '_static/exit_questionnaire.json' }}</script>
 <script>
-    const movieSurveyJson = document.getElementById("movieSurveyJson").textContent;
-    const survey = new Survey.Model(JSON.parse(movieSurveyJson));
+    const exitSurveyJson = document.getElementById("exitSurveyJson").textContent;
+    const survey = new Survey.Model(JSON.parse(exitSurveyJson));
     Survey.StylesManager.applyTheme("bootstrap");
     survey.showPrevButton = false;
     survey.showCompletedPage = false;
 
     survey.onTextMarkdown.add(function (_, options) {
-        options.html = (options.text || "")
-            .replace(/<gray>(.*?)<\/gray>/g, "<span style=\"color:#6c757d;\">$1</span>")
-            .replace(/<red>(.*?)<\/red>/g, "<span style=\"color:#dc3545;\">$1</span>")
-            .replace(/\*(.*?)\*/g, "<em>$1</em>");
+        options.html = (options.text || "").replace(/\*(.*?)\*/g, "<em>$1</em>");
     });
 
     survey.onComplete.add(function (sender) {

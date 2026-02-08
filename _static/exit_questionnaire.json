@@ -1,0 +1,231 @@
+{
+  "title": "Exit Questionnaire",
+  "showQuestionNumbers": "off",
+  "showProgressBar": "top",
+  "progressBarType": "pages",
+  "completeText": "Submit questionnaire",
+  "showCompletedPage": false,
+  "pages": [
+    {
+      "name": "d1",
+      "elements": [
+        {
+          "type": "text",
+          "name": "age",
+          "title": "D1. Age: Please enter your age in years. (Must be 18+)",
+          "inputType": "number",
+          "isRequired": true,
+          "min": 18,
+          "max": 120
+        }
+      ]
+    },
+    {
+      "name": "d2",
+      "elements": [
+        {
+          "type": "radiogroup",
+          "name": "gender",
+          "title": "D2. Gender",
+          "isRequired": true,
+          "choices": [
+            "Woman",
+            "Man",
+            "Non-binary / another identity",
+            "Prefer not to say"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "d3",
+      "elements": [
+        {
+          "type": "text",
+          "name": "country_residence",
+          "title": "D3. Country of residence",
+          "isRequired": true
+        }
+      ]
+    },
+    {
+      "name": "d4",
+      "elements": [
+        {
+          "type": "text",
+          "name": "citizenship",
+          "title": "D4. Citizenship (optional)"
+        }
+      ]
+    },
+    {
+      "name": "d5",
+      "elements": [
+        {
+          "type": "radiogroup",
+          "name": "education",
+          "title": "D5. Highest completed education",
+          "isRequired": true,
+          "choices": [
+            "Less than high school",
+            "High school / secondary school",
+            "Some college / vocational training",
+            "Bachelor degree",
+            "Master degree",
+            "Doctorate",
+            "Other",
+            "Prefer not to say"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "p1",
+      "elements": [
+        {
+          "type": "radiogroup",
+          "name": "political_self_placement",
+          "title": "P1. Left-Right self-placement: In politics people sometimes talk of left and right. Where would you place yourself?",
+          "isRequired": true,
+          "choices": [
+            "0",
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7",
+            "8",
+            "9",
+            "10",
+            "Prefer not to say"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "p2",
+      "elements": [
+        {
+          "type": "radiogroup",
+          "name": "political_interest",
+          "title": "P2. How interested are you in politics? (1 = Not at all, 7 = Very interested)",
+          "isRequired": true,
+          "choices": [
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "p3",
+      "elements": [
+        {
+          "type": "radiogroup",
+          "name": "party_identification",
+          "title": "P3. Do you identify with a political party or movement?",
+          "isRequired": true,
+          "choices": [
+            "Yes",
+            "No",
+            "Prefer not to say"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "p3b",
+      "elements": [
+        {
+          "type": "text",
+          "name": "party_identification_text",
+          "title": "If yes, which one?",
+          "visibleIf": "{party_identification} = 'Yes'",
+          "isRequired": true
+        }
+      ]
+    },
+    {
+      "name": "q1",
+      "elements": [
+        {
+          "type": "radiogroup",
+          "name": "attention_check",
+          "title": "Q1. Attention check: To show you are paying attention, please select option 3 for this question.",
+          "isRequired": true,
+          "choices": [
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "q2",
+      "elements": [
+        {
+          "type": "radiogroup",
+          "name": "seriousness_check",
+          "title": "Q2. Did you answer the questions carefully and honestly?",
+          "isRequired": true,
+          "choices": [
+            "Yes",
+            "No",
+            "Prefer not to say"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "s1",
+      "elements": [
+        {
+          "type": "radiogroup",
+          "name": "prediction_strategy",
+          "title": "S1. How did you make your predictions about the average participant?",
+          "isRequired": true,
+          "choices": [
+            "I mostly reported my own impression",
+            "I mostly tried to guess what most people would think",
+            "I used both / it varied by movie",
+            "Other"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "s1b",
+      "elements": [
+        {
+          "type": "comment",
+          "name": "prediction_strategy_other",
+          "title": "If \"Other\", please specify",
+          "visibleIf": "{prediction_strategy} = 'Other'",
+          "isRequired": true
+        }
+      ]
+    },
+    {
+      "name": "f1",
+      "elements": [
+        {
+          "type": "comment",
+          "name": "comments",
+          "title": "F1. Any comments about the study? (optional)"
+        }
+      ]
+    }
+  ]
+}

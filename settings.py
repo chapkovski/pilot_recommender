@@ -2,8 +2,27 @@ from os import environ
 
 SESSION_CONFIGS = [
     dict(
-        name='recommender_system',
+        name='full_study',
+        display_name='Full Study (intro + main + post_experimental)',
+        app_sequence=['intro', 'main', 'post_experimental'],
+        num_demo_participants=1,
+    ),
+    dict(
+        name='intro_only',
+        display_name='Intro Only',
+        app_sequence=['intro'],
+        num_demo_participants=1,
+    ),
+    dict(
+        name='main_only',
+        display_name='Main Only',
         app_sequence=['main'],
+        num_demo_participants=1,
+    ),
+    dict(
+        name='post_experimental_only',
+        display_name='Post-Experimental Only',
+        app_sequence=['post_experimental'],
         num_demo_participants=1,
     ),
 ]

@@ -4,7 +4,7 @@ Instructions
 
 {{ block content }}
 <p>
-    You will see <strong>{{ C.NUM_ROUNDS }}</strong> fictional movie concepts (poster + short synopsis).
+    You will see <strong>{{ num_movies }}</strong> fictional movie concepts (poster + short synopsis).
     For each movie, your task is to estimate what the <strong>average participant</strong> would answer.
     Please do not answer with your own opinion unless that is part of your prediction strategy.
 </p>
@@ -23,12 +23,12 @@ Instructions
 </p>
 <ol>
     <li>Which political group is more likely to enjoy the movie.</li>
-    <li>Confidence in that guess.</li>
+    <li>How you think the average participant would answer that same question.</li>
     <li>Political vibe of the movie concept.</li>
-    <li>Confidence in that answer.</li>
+    <li>How you think the average participant would answer that political-vibe question.</li>
 </ol>
 
-<p>After the last movie, you will complete a short exit questionnaire.</p>
+<p>Depending on the study setup, you may complete a short exit questionnaire after the last movie.</p>
 
 {{ next_button }}
 {{ endblock }}
