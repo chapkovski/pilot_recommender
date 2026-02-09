@@ -33,7 +33,18 @@ SESSION_CONFIGS = [
 # e.g. self.session.config['participation_fee']
 
 SESSION_CONFIG_DEFAULTS = dict(
-    real_world_currency_per_point=1.00, participation_fee=0.00, doc=""
+    real_world_currency_per_point=1.00,
+    participation_fee=0.00,
+    doc="",
+    estimated_duration_minutes=30,
+    payment_currency_symbol="€",
+    base_payment_amount=1.50,
+    accuracy_bonus_max_amount=1.50,
+    bonus_per_movie_amount=0.10,
+    bonus_tolerance_points=1,
+    scale_min=1,
+    scale_max=7,
+    no_bonus_amount=0.00,
 )
 
 PARTICIPANT_FIELDS = []

@@ -61,7 +61,21 @@ class Instructions(Page):
     def vars_for_template(player: Player):
         from main import C as MainC
 
-        return dict(num_movies=MainC.NUM_ROUNDS)
+        cfg = player.session.config
+        currency = cfg['payment_currency_symbol']
+        tolerance = int(cfg['bonus_tolerance_points'])
+        return dict(
+            num_movies=MainC.NUM_ROUNDS,
+            duration_minutes=int(cfg['estimated_duration_minutes']),
+            base_payment_display=f"{currency}{float(cfg['base_payment_amount']):.2f}",
+            accuracy_bonus_max_display=f"{currency}{float(cfg['accuracy_bonus_max_amount']):.2f}",
+            bonus_per_movie_display=f"{currency}{float(cfg['bonus_per_movie_amount']):.2f}",
+            no_bonus_display=f"{currency}{float(cfg['no_bonus_amount']):.2f}",
+            bonus_tolerance_points=tolerance,
+            bonus_tolerance_label='point' if tolerance == 1 else 'points',
+            scale_min=int(cfg['scale_min']),
+            scale_max=int(cfg['scale_max']),
+        )
 
 
 page_sequence = [Consent, Instructions]

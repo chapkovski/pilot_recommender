@@ -14,34 +14,13 @@
           "title": "If this movie were released today, which political group would you expect to like it more?",
           "isRequired": true,
           "choices": [
-            {
-              "value": 1,
-              "text": "1 - Much more left-leaning viewers"
-            },
-            {
-              "value": 2,
-              "text": "2 - More left-leaning viewers"
-            },
-            {
-              "value": 3,
-              "text": "3 - Slightly more left-leaning viewers"
-            },
-            {
-              "value": 4,
-              "text": "4 - About equally (or no clear tilt)"
-            },
-            {
-              "value": 5,
-              "text": "5 - Slightly more right-leaning viewers"
-            },
-            {
-              "value": 6,
-              "text": "6 - More right-leaning viewers"
-            },
-            {
-              "value": 7,
-              "text": "7 - Much more right-leaning viewers"
-            }
+            { "value": 1, "text": "1 - Much more left-leaning viewers" },
+            { "value": 2, "text": "2 - More left-leaning viewers" },
+            { "value": 3, "text": "3 - Slightly more left-leaning viewers" },
+            { "value": 4, "text": "4 - About equally (or no clear tilt)" },
+            { "value": 5, "text": "5 - Slightly more right-leaning viewers" },
+            { "value": 6, "text": "6 - More right-leaning viewers" },
+            { "value": 7, "text": "7 - Much more right-leaning viewers" }
           ]
         }
       ]
@@ -52,37 +31,16 @@
         {
           "type": "radiogroup",
           "name": "average_predicted_audience",
-          "title": "How do you think an <u>average</u> participant would answer this question <gray>(the correct answer would increase your bonus)</gray>: *If this movie were released today, which political group would you expect to like it more?*",
+          "title": "What do you think most other participants will choose? <gray>(You earn a €0.10 bonus if your guess is within 1 point of the overall average answer.)</gray><br><i>If this movie were released today, which political group would you expect to like it more?</i>",
           "isRequired": true,
           "choices": [
-            {
-              "value": 1,
-              "text": "1 - Much more left-leaning viewers"
-            },
-            {
-              "value": 2,
-              "text": "2 - More left-leaning viewers"
-            },
-            {
-              "value": 3,
-              "text": "3 - Slightly more left-leaning viewers"
-            },
-            {
-              "value": 4,
-              "text": "4 - About equally (or no clear tilt)"
-            },
-            {
-              "value": 5,
-              "text": "5 - Slightly more right-leaning viewers"
-            },
-            {
-              "value": 6,
-              "text": "6 - More right-leaning viewers"
-            },
-            {
-              "value": 7,
-              "text": "7 - Much more right-leaning viewers"
-            }
+            { "value": 1, "text": "1 - Much more left-leaning viewers" },
+            { "value": 2, "text": "2 - More left-leaning viewers" },
+            { "value": 3, "text": "3 - Slightly more left-leaning viewers" },
+            { "value": 4, "text": "4 - About equally (or no clear tilt)" },
+            { "value": 5, "text": "5 - Slightly more right-leaning viewers" },
+            { "value": 6, "text": "6 - More right-leaning viewers" },
+            { "value": 7, "text": "7 - Much more right-leaning viewers" }
           ]
         }
       ]
@@ -96,34 +54,13 @@
           "title": "What political \"vibe\" does this movie concept give you?",
           "isRequired": true,
           "choices": [
-            {
-              "value": 1,
-              "text": "1 - Clearly left-leaning vibe"
-            },
-            {
-              "value": 2,
-              "text": "2"
-            },
-            {
-              "value": 3,
-              "text": "3"
-            },
-            {
-              "value": 4,
-              "text": "4 - Neutral / mixed"
-            },
-            {
-              "value": 5,
-              "text": "5"
-            },
-            {
-              "value": 6,
-              "text": "6"
-            },
-            {
-              "value": 7,
-              "text": "7 - Clearly right-leaning vibe"
-            }
+            { "value": 1, "text": "1 - Clearly left-leaning vibe" },
+            { "value": 2, "text": "2 - Somewhat left-leaning vibe" },
+            { "value": 3, "text": "3 - Slightly left-leaning vibe" },
+            { "value": 4, "text": "4 - Neutral / hard to tell" },
+            { "value": 5, "text": "5 - Slightly right-leaning vibe" },
+            { "value": 6, "text": "6 - Somewhat right-leaning vibe" },
+            { "value": 7, "text": "7 - Clearly right-leaning vibe" }
           ]
         }
       ]
@@ -134,37 +71,16 @@
         {
           "type": "radiogroup",
           "name": "average_movie_vibe",
-          "title": "How do you think an <u>average</u> participant would answer this question <gray>(the correct answer would increase your bonus)</gray>: *What political \"vibe\" does this movie concept give you?*",
+          "title": "What do you think most other participants will choose? <gray>(You earn a €0.10 bonus if your guess is within 1 point of the overall average answer.)</gray><br><i>What political \"vibe\" does this movie concept give you?</i>",
           "isRequired": true,
           "choices": [
-            {
-              "value": 1,
-              "text": "1 - Clearly left-leaning vibe"
-            },
-            {
-              "value": 2,
-              "text": "2"
-            },
-            {
-              "value": 3,
-              "text": "3"
-            },
-            {
-              "value": 4,
-              "text": "4 - Neutral / mixed"
-            },
-            {
-              "value": 5,
-              "text": "5"
-            },
-            {
-              "value": 6,
-              "text": "6"
-            },
-            {
-              "value": 7,
-              "text": "7 - Clearly right-leaning vibe"
-            }
+            { "value": 1, "text": "1 - Clearly left-leaning vibe" },
+            { "value": 2, "text": "2 - Somewhat left-leaning vibe" },
+            { "value": 3, "text": "3 - Slightly left-leaning vibe" },
+            { "value": 4, "text": "4 - Neutral / hard to tell" },
+            { "value": 5, "text": "5 - Slightly right-leaning vibe" },
+            { "value": 6, "text": "6 - Somewhat right-leaning vibe" },
+            { "value": 7, "text": "7 - Clearly right-leaning vibe" }
           ]
         }
       ]

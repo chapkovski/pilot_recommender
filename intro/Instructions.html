@@ -5,30 +5,42 @@ Instructions
 {{ block content }}
 <p>
     You will see <strong>{{ num_movies }}</strong> fictional movie concepts (poster + short synopsis).
-    For each movie, your task is to estimate what the <strong>average participant</strong> would answer.
+    For each movie, your task is to predict what <strong>most other participants</strong> will choose.
     Please do not answer with your own opinion unless that is part of your prediction strategy.
 </p>
 
-<p>There are no right or wrong answers. Try to be as close as possible to the group average.</p>
+<p>
+    There are no right or wrong answers. Your goal is to be as accurate as possible.
+</p>
 
-<p><strong>Duration and payment (from study document):</strong></p>
+<p><strong>Duration and payment:</strong></p>
 <ul>
-    <li>Estimated duration: about 30 minutes.</li>
-    <li>Base payment: 1.50.</li>
-    <li>Bonus: up to 2.00 based on accuracy.</li>
+    <li>Estimated duration: about {{ duration_minutes }} minutes.</li>
+    <li>Base payment: {{ base_payment_display }}.</li>
+    <li>Accuracy bonus: up to {{ accuracy_bonus_max_display }}.</li>
 </ul>
 
 <p>
-    On each movie page, you will answer:
+    <strong>Accuracy bonus (simple rule):</strong>
+    For each movie, you can earn a {{ bonus_per_movie_display }} bonus if your prediction is within
+    {{ bonus_tolerance_points }} {{ bonus_tolerance_label }} of the overall average answer given by
+    the other participants (on the {{ scale_min }}-{{ scale_max }} scale). Otherwise you earn
+    {{ no_bonus_display }} for that movie. You never lose money.
+</p>
+
+<p>
+    On each movie page, you will answer four questions:
 </p>
 <ol>
-    <li>Which political group is more likely to enjoy the movie.</li>
-    <li>How you think the average participant would answer that same question.</li>
-    <li>Political vibe of the movie concept.</li>
-    <li>How you think the average participant would answer that political-vibe question.</li>
+    <li>Your own judgment: which political group is more likely to enjoy the movie.</li>
+    <li>Your prediction: what most other participants will choose for that same question.</li>
+    <li>Your own judgment: the political “vibe” of the movie concept.</li>
+    <li>Your prediction: what most other participants will choose for that political-vibe question.</li>
 </ol>
 
-<p>Depending on the study setup, you may complete a short exit questionnaire after the last movie.</p>
+<p>
+    Depending on the study setup, you may complete a short exit questionnaire after the last movie.
+</p>
 
 {{ next_button }}
 {{ endblock }}
