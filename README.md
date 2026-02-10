@@ -145,7 +145,3 @@ Instructions display these values dynamically from session config.
 
 Edit `SESSION_CONFIGS` in `settings.py` (`app_sequence`).
 
-## Notes
-
-- `main/MyPage.html` and `main/Results.html` appear to be default/legacy templates and are not used by current `page_sequence`.
-- One filename is intentionally spelled `the_wachters.png` in code and static files; keep this exact spelling unless you rename both places.
