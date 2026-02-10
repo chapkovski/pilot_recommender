@@ -145,21 +145,7 @@ Movie {{ movie_number }} of {{ total_movies }}
 {{ block scripts }}
 <script src="https://unpkg.com/jquery@3.7.1/dist/jquery.min.js"></script>
 <script src="https://unpkg.com/survey-jquery@1.12.18/survey.jquery.min.js"></script>
-<script id="movieSurveyJson" type="application/json">{{ include '_static/movie_survey.json' }}</script>
 <script>
-    const movieSurveyJson = document.getElementById("movieSurveyJson").textContent;
-    const survey = new Survey.Model(JSON.parse(movieSurveyJson));
-    Survey.StylesManager.applyTheme("bootstrap");
-    survey.showPrevButton = false;
-    survey.showCompletedPage = false;
-
-    survey.onTextMarkdown.add(function (_, options) {
-        options.html = (options.text || "")
-            .replace(/<gray>(.*?)<\/gray>/g, "<span style=\"color:#6c757d;\">$1</span>")
-            .replace(/<red>(.*?)<\/red>/g, "<span style=\"color:#dc3545;\">$1</span>")
-            .replace(/\*(.*?)\*/g, "<em>$1</em>");
-    });
-
     function scrollToTopOnMobile() {
         if (!window.matchMedia("(max-width: 991.98px)").matches) {
             return;
@@ -169,15 +155,42 @@ Movie {{ movie_number }} of {{ total_movies }}
         document.body.scrollTop = 0;
     }
 
-    survey.onCurrentPageChanged.add(function () {
-        window.setTimeout(scrollToTopOnMobile, 0);
-    });
+    async function initMovieSurvey() {
+        try {
+            const response = await fetch("/static/movie_survey.json", {cache: "no-store"});
+            if (!response.ok) {
+                throw new Error(`HTTP ${response.status} while loading movie_survey.json`);
+            }
+            const surveyJson = await response.json();
+            const survey = new Survey.Model(surveyJson);
+            Survey.StylesManager.applyTheme("bootstrap");
+            survey.showPrevButton = false;
+            survey.showCompletedPage = false;
 
-    survey.onComplete.add(function (sender) {
-        document.getElementById('surveyResults').value = JSON.stringify(sender.data);
-        document.getElementById('form').submit();
-    });
+            survey.onTextMarkdown.add(function (_, options) {
+                options.html = (options.text || "")
+                    .replace(/<gray>(.*?)<\/gray>/g, "<span style=\"color:#6c757d;\">$1</span>")
+                    .replace(/<red>(.*?)<\/red>/g, "<span style=\"color:#dc3545;\">$1</span>")
+                    .replace(/\*(.*?)\*/g, "<em>$1</em>");
+            });
 
-    $("#surveyContainer").Survey({model: survey});
+            survey.onCurrentPageChanged.add(function () {
+                window.setTimeout(scrollToTopOnMobile, 0);
+            });
+
+            survey.onComplete.add(function (sender) {
+                document.getElementById("surveyResults").value = JSON.stringify(sender.data);
+                document.getElementById("form").submit();
+            });
+
+            $("#surveyContainer").Survey({model: survey});
+        } catch (error) {
+            console.error("Failed to initialize MovieSurvey JSON:", error);
+            document.getElementById("surveyContainer").innerHTML =
+                '<div class="alert alert-danger mb-0">Could not load the survey. Please reload the page.</div>';
+        }
+    }
+
+    initMovieSurvey();
 </script>
 {{ endblock }}
