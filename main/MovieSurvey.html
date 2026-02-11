@@ -112,8 +112,11 @@ Movie {{ movie_number }} of {{ total_movies }}
 {{ endblock }}
 
 {{ block content }}
-<div class="text-center mb-3">
+<div class="d-flex justify-content-between align-items-center mb-3">
     <span class="badge text-bg-primary">Movie {{ movie_number }} of {{ total_movies }}</span>
+    <button type="button" class="btn btn-outline-secondary btn-sm" data-bs-toggle="modal" data-bs-target="#instructionsModal">
+        Instructions
+    </button>
 </div>
 
 <div class="row g-4 align-items-start">
@@ -134,6 +137,23 @@ Movie {{ movie_number }} of {{ total_movies }}
         <div class="card survey-card shadow-sm">
             <div class="card-body p-4">
                 <div id="surveyContainer"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="instructionsModal" tabindex="-1" aria-labelledby="instructionsModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="instructionsModalLabel">Study Instructions</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                {{ include 'intro/includes/study_instructions_body.html' }}
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
             </div>
         </div>
     </div>

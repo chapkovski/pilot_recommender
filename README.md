@@ -44,6 +44,7 @@ otree devserver
 
 - `settings.py`: oTree session configs, payment defaults, app sequence.
 - `intro/`: consent and instructions pages.
+- `intro/includes/study_instructions_body.html`: shared study instructions content used in intro and main modal.
 - `main/`: movie-round logic, movie catalog, main questionnaire page.
 - `post_experimental/`: exit questionnaire logic.
 - `_static/movie_survey.json`: SurveyJS JSON for each movie round.
@@ -56,7 +57,7 @@ otree devserver
 1. Participant consents in `intro/Consent.html`.
 2. Participant reads instructions in `intro/Instructions.html` (duration, base payment, bonus rule).
 3. In `main`, participant goes through one round per movie (`C.NUM_ROUNDS = len(C.MOVIES)`, currently 16).
-4. Each round shows movie title, poster image, synopsis, and a 4-page SurveyJS questionnaire.
+4. Each round shows movie title, poster image, synopsis, and a 4-page SurveyJS questionnaire. An `Instructions` button opens the same study instructions in a modal.
 5. After the final movie, if `main` is last app in sequence then `main/Completion.html` is shown; otherwise flow continues to `post_experimental`.
 6. In `post_experimental`, participant completes demographics, ALLBUS left-right self-placement (1-10), a 12-item SECS thermometer battery (0-100), and quality checks, then sees completion page.
 
