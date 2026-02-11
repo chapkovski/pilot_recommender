@@ -3,7 +3,7 @@ Exit Questionnaire
 {{ endblock }}
 
 {{ block styles }}
-<link href="https://unpkg.com/survey-jquery@1.12.18/defaultV2.min.css" rel="stylesheet">
+<link href="https://unpkg.com/survey-core@2.5.9/survey-core.min.css" rel="stylesheet">
 <style>
     .exit-card {
         max-width: 900px;
@@ -100,13 +100,12 @@ Exit Questionnaire
 {{ endblock }}
 
 {{ block scripts }}
-<script src="https://unpkg.com/jquery@3.7.1/dist/jquery.min.js"></script>
-<script src="https://unpkg.com/survey-jquery@1.12.18/survey.jquery.min.js"></script>
+<script src="https://unpkg.com/survey-core@2.5.9/survey.core.min.js"></script>
+<script src="https://unpkg.com/survey-js-ui@2.5.9/survey-js-ui.min.js"></script>
 <script id="exitSurveyJson" type="application/json">{{ include '_static/exit_questionnaire.json' }}</script>
 <script>
     const exitSurveyJson = document.getElementById("exitSurveyJson").textContent;
     const survey = new Survey.Model(JSON.parse(exitSurveyJson));
-    Survey.StylesManager.applyTheme("bootstrap");
     survey.showPrevButton = false;
     survey.showCompletedPage = false;
 
@@ -119,6 +118,6 @@ Exit Questionnaire
         document.getElementById('form').submit();
     });
 
-    $("#surveyContainer").Survey({model: survey});
+    survey.render(document.getElementById("surveyContainer"));
 </script>
 {{ endblock }}

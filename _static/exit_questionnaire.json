@@ -40,10 +40,17 @@
       "name": "d3",
       "elements": [
         {
-          "type": "text",
+          "type": "dropdown",
           "name": "country_residence",
           "title": "Country of residence",
-          "isRequired": true
+          "isRequired": true,
+          "searchEnabled": true,
+          "placeholder": "Select a country...",
+          "choicesByUrl": {
+            "url": "https://surveyjs.io/api/CountriesExample",
+            "valueName": "name",
+            "titleName": "name"
+          }
         }
       ]
     },
@@ -72,24 +79,143 @@
       "name": "p1",
       "elements": [
         {
-          "type": "radiogroup",
+          "type": "rating",
           "name": "political_self_placement",
           "title": "Left-Right self-placement: In politics people sometimes talk of left and right. Where would you place yourself?",
           "isRequired": true,
-          "choices": [
-            "0",
-            "1",
-            "2",
-            "3",
-            "4",
-            "5",
-            "6",
-            "7",
-            "8",
-            "9",
-            "10",
-            "Prefer not to say"
-          ]
+          "rateMin": 1,
+          "rateMax": 10,
+          "rateStep": 1,
+          "displayMode": "buttons",
+          "minRateDescription": "Left",
+          "maxRateDescription": "Right"
+        }
+      ]
+    },
+    {
+      "name": "secs_intro",
+      "title": "Please indicate the extent to which you feel positive or negative toward each issue. 0 = very negative, 100 = very positive, 50 = neutral.",
+      "description": "",
+      "elements": [
+        {
+          "type": "slider",
+          "name": "secs_religion",
+          "title": "Religion",
+          "description": "Please indicate the extent to which you feel positive or negative toward each issue. 0 = very negative, 100 = very positive, 50 = neutral.",
+          "isRequired": true,
+          "min": 0,
+          "max": 100,
+          "step": 1
+        },
+        {
+          "type": "slider",
+          "name": "secs_trad_marriage",
+          "title": "Traditional marriage",
+          "description": "Please indicate the extent to which you feel positive or negative toward each issue. 0 = very negative, 100 = very positive, 50 = neutral.",
+          "isRequired": true,
+          "min": 0,
+          "max": 100,
+          "step": 1
+        },
+        {
+          "type": "slider",
+          "name": "secs_business",
+          "title": "Business",
+          "description": "Please indicate the extent to which you feel positive or negative toward each issue. 0 = very negative, 100 = very positive, 50 = neutral.",
+          "isRequired": true,
+          "min": 0,
+          "max": 100,
+          "step": 1
+        },
+        {
+          "type": "slider",
+          "name": "secs_welfare",
+          "title": "Welfare benefits",
+          "description": "Please indicate the extent to which you feel positive or negative toward each issue. 0 = very negative, 100 = very positive, 50 = neutral.",
+          "isRequired": true,
+          "min": 0,
+          "max": 100,
+          "step": 1
+        },
+        {
+          "type": "slider",
+          "name": "secs_abortion",
+          "title": "Abortion",
+          "description": "Please indicate the extent to which you feel positive or negative toward each issue. 0 = very negative, 100 = very positive, 50 = neutral.",
+          "isRequired": true,
+          "min": 0,
+          "max": 100,
+          "step": 1
+        },
+        {
+          "type": "slider",
+          "name": "secs_family",
+          "title": "The family unit",
+          "description": "Please indicate the extent to which you feel positive or negative toward each issue. 0 = very negative, 100 = very positive, 50 = neutral.",
+          "isRequired": true,
+          "min": 0,
+          "max": 100,
+          "step": 1
+        },
+        {
+          "type": "slider",
+          "name": "secs_limited_gov",
+          "title": "Limited government",
+          "description": "Please indicate the extent to which you feel positive or negative toward each issue. 0 = very negative, 100 = very positive, 50 = neutral.",
+          "isRequired": true,
+          "min": 0,
+          "max": 100,
+          "step": 1
+        },
+        {
+          "type": "slider",
+          "name": "secs_military",
+          "title": "Military and national security",
+          "description": "Please indicate the extent to which you feel positive or negative toward each issue. 0 = very negative, 100 = very positive, 50 = neutral.",
+          "isRequired": true,
+          "min": 0,
+          "max": 100,
+          "step": 1
+        },
+        {
+          "type": "slider",
+          "name": "secs_patriotism",
+          "title": "Patriotism",
+          "description": "Please indicate the extent to which you feel positive or negative toward each issue. 0 = very negative, 100 = very positive, 50 = neutral.",
+          "isRequired": true,
+          "min": 0,
+          "max": 100,
+          "step": 1
+        },
+        {
+          "type": "slider",
+          "name": "secs_trad_values",
+          "title": "Traditional values",
+          "description": "Please indicate the extent to which you feel positive or negative toward each issue. 0 = very negative, 100 = very positive, 50 = neutral.",
+          "isRequired": true,
+          "min": 0,
+          "max": 100,
+          "step": 1
+        },
+        {
+          "type": "slider",
+          "name": "secs_guns",
+          "title": "Gun ownership",
+          "description": "Please indicate the extent to which you feel positive or negative toward each issue. 0 = very negative, 100 = very positive, 50 = neutral.",
+          "isRequired": true,
+          "min": 0,
+          "max": 100,
+          "step": 1
+        },
+        {
+          "type": "slider",
+          "name": "secs_fiscal",
+          "title": "Fiscal responsibility",
+          "description": "Please indicate the extent to which you feel positive or negative toward each issue. 0 = very negative, 100 = very positive, 50 = neutral.",
+          "isRequired": true,
+          "min": 0,
+          "max": 100,
+          "step": 1
         }
       ]
     },

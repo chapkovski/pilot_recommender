@@ -40,6 +40,20 @@ class C(BaseConstants):
         'I used both / it varied by movie',
         'Other',
     ]
+    SECS_ITEM_SPECS = [
+        ('secs_religion', 'S', False),
+        ('secs_trad_marriage', 'S', False),
+        ('secs_business', 'E', False),
+        ('secs_welfare', 'E', True),
+        ('secs_abortion', 'S', False),
+        ('secs_family', 'S', False),
+        ('secs_limited_gov', 'E', False),
+        ('secs_military', 'S', False),
+        ('secs_patriotism', 'S', False),
+        ('secs_trad_values', 'S', False),
+        ('secs_guns', 'S', False),
+        ('secs_fiscal', 'E', False),
+    ]
 
 
 class Subsession(BaseSubsession):
@@ -67,8 +81,42 @@ class Player(BasePlayer):
     )
     political_self_placement = models.StringField(
         label='Left-Right self-placement',
-        choices=[[str(i), str(i)] for i in range(11)]
+        choices=[[str(i), str(i)] for i in range(1, 11)]
         + [['Prefer not to say', 'Prefer not to say']],
+    )
+    allbus_left_right_numeric = models.IntegerField(
+        label='Left-Right self-placement (numeric 1-10)',
+        min=1,
+        max=10,
+        blank=True,
+    )
+    secs_religion = models.IntegerField(label='SECS: Religion', min=0, max=100, blank=True)
+    secs_trad_marriage = models.IntegerField(label='SECS: Traditional marriage', min=0, max=100, blank=True)
+    secs_business = models.IntegerField(label='SECS: Business', min=0, max=100, blank=True)
+    secs_welfare = models.IntegerField(label='SECS: Welfare benefits', min=0, max=100, blank=True)
+    secs_abortion = models.IntegerField(label='SECS: Abortion', min=0, max=100, blank=True)
+    secs_family = models.IntegerField(label='SECS: The family unit', min=0, max=100, blank=True)
+    secs_limited_gov = models.IntegerField(label='SECS: Limited government', min=0, max=100, blank=True)
+    secs_military = models.IntegerField(label='SECS: Military and national security', min=0, max=100, blank=True)
+    secs_patriotism = models.IntegerField(label='SECS: Patriotism', min=0, max=100, blank=True)
+    secs_trad_values = models.IntegerField(label='SECS: Traditional values', min=0, max=100, blank=True)
+    secs_guns = models.IntegerField(label='SECS: Gun ownership', min=0, max=100, blank=True)
+    secs_fiscal = models.IntegerField(label='SECS: Fiscal responsibility', min=0, max=100, blank=True)
+    secs_economic_score = models.FloatField(
+        label='SECS economic conservatism score (0-100; higher=more conservative)',
+        blank=True,
+    )
+    secs_cultural_score = models.FloatField(
+        label='SECS cultural conservatism score (0-100; higher=more conservative)',
+        blank=True,
+    )
+    secs_left_right_reconstructed = models.FloatField(
+        label='SECS reconstructed left-right position (1-10)',
+        blank=True,
+    )
+    secs_allbus_diff = models.FloatField(
+        label='ALLBUS declared minus SECS reconstructed left-right (1-10)',
+        blank=True,
     )
     political_interest = models.IntegerField(
         label='How interested are you in politics?',
@@ -131,9 +179,32 @@ class ExitQuestionnaire(SurveyJSPage):
     def process_survey_data(self, data):
         self.player.age = int(data['age'])
         self.player.gender = data['gender']
-        self.player.country_residence = data['country_residence'].strip()
+        self.player.country_residence = str(data['country_residence']).strip()
         self.player.education = data['education']
         self.player.political_self_placement = str(data['political_self_placement'])
+        self.player.allbus_left_right_numeric = (
+            int(self.player.political_self_placement)
+            if self.player.political_self_placement.isdigit()
+            else None
+        )
+
+        secs_scores = {'E': [], 'S': []}
+        for field_name, dim, reverse in C.SECS_ITEM_SPECS:
+            value = int(data[field_name])
+            setattr(self.player, field_name, value)
+            scored = 100 - value if reverse else value
+            secs_scores[dim].append(scored)
+
+        self.player.secs_economic_score = sum(secs_scores['E']) / len(secs_scores['E'])
+        self.player.secs_cultural_score = sum(secs_scores['S']) / len(secs_scores['S'])
+        secs_combined_0_to_100 = (self.player.secs_economic_score + self.player.secs_cultural_score) / 2
+        self.player.secs_left_right_reconstructed = 1 + 9 * (secs_combined_0_to_100 / 100)
+        self.player.secs_allbus_diff = (
+            self.player.allbus_left_right_numeric - self.player.secs_left_right_reconstructed
+            if self.player.allbus_left_right_numeric is not None
+            else None
+        )
+
         self.player.political_interest = int(data['political_interest'])
         self.player.party_identification = data['party_identification']
         self.player.party_identification_text = data.get('party_identification_text', '').strip()

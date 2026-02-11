@@ -9,7 +9,7 @@ The experiment is split into up to 3 apps:
 
 1. `intro`: Consent + participant instructions.
 2. `main`: 16 movie rounds, each with a SurveyJS questionnaire.
-3. `post_experimental`: Demographics and quality checks (SurveyJS).
+3. `post_experimental`: Demographics, ideology battery (ALLBUS + SECS), and quality checks (SurveyJS).
 
 The default full run is configured in `settings.py` as:
 
@@ -58,7 +58,7 @@ otree devserver
 3. In `main`, participant goes through one round per movie (`C.NUM_ROUNDS = len(C.MOVIES)`, currently 16).
 4. Each round shows movie title, poster image, synopsis, and a 4-page SurveyJS questionnaire.
 5. After the final movie, if `main` is last app in sequence then `main/Completion.html` is shown; otherwise flow continues to `post_experimental`.
-6. In `post_experimental`, participant completes demographics and checks, then sees completion page.
+6. In `post_experimental`, participant completes demographics, ALLBUS left-right self-placement (1-10), a 12-item SECS thermometer battery (0-100), and quality checks, then sees completion page.
 
 ## SurveyJS integration (important)
 
@@ -67,8 +67,8 @@ SurveyJS is used in both `main` and `post_experimental`.
 ### Front-end flow
 
 - `main/MovieSurvey.html` loads:
-  - `jquery@3.7.1`
-  - `survey-jquery@1.12.18`
+  - `survey-core@2.5.9`
+  - `survey-js-ui@2.5.9`
   - questionnaire schema from `/static/movie_survey.json` using `fetch()`
 - `post_experimental/ExitQuestionnaire.html` loads:
   - same SurveyJS libraries
@@ -84,6 +84,11 @@ SurveyJS is used in both `main` and `post_experimental`.
   - parses JSON
   - calls `process_survey_data()`
 - `process_survey_data()` writes each JSON field into oTree `Player` fields.
+- For `post_experimental`, `process_survey_data()` also computes and stores:
+  - `secs_economic_score` (0-100; higher = more conservative)
+  - `secs_cultural_score` (0-100; higher = more conservative)
+  - `secs_left_right_reconstructed` (mapped to 1-10)
+  - `secs_allbus_diff` (`declared ALLBUS - reconstructed SECS`)
 
 Field names in JSON must exactly match the keys expected in:
 
@@ -144,4 +149,3 @@ Instructions display these values dynamically from session config.
 ### To change flow
 
 Edit `SESSION_CONFIGS` in `settings.py` (`app_sequence`).
-

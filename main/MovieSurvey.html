@@ -3,7 +3,7 @@ Movie {{ movie_number }} of {{ total_movies }}
 {{ endblock }}
 
 {{ block styles }}
-<link href="https://unpkg.com/survey-jquery@1.12.18/defaultV2.min.css" rel="stylesheet">
+<link href="https://unpkg.com/survey-core@2.5.9/survey-core.min.css" rel="stylesheet">
 <style>
     .movie-card {
         max-width: none;
@@ -143,8 +143,8 @@ Movie {{ movie_number }} of {{ total_movies }}
 {{ endblock }}
 
 {{ block scripts }}
-<script src="https://unpkg.com/jquery@3.7.1/dist/jquery.min.js"></script>
-<script src="https://unpkg.com/survey-jquery@1.12.18/survey.jquery.min.js"></script>
+<script src="https://unpkg.com/survey-core@2.5.9/survey.core.min.js"></script>
+<script src="https://unpkg.com/survey-js-ui@2.5.9/survey-js-ui.min.js"></script>
 <script>
     function scrollToTopOnMobile() {
         if (!window.matchMedia("(max-width: 991.98px)").matches) {
@@ -163,7 +163,6 @@ Movie {{ movie_number }} of {{ total_movies }}
             }
             const surveyJson = await response.json();
             const survey = new Survey.Model(surveyJson);
-            Survey.StylesManager.applyTheme("bootstrap");
             survey.showPrevButton = false;
             survey.showCompletedPage = false;
 
@@ -183,7 +182,7 @@ Movie {{ movie_number }} of {{ total_movies }}
                 document.getElementById("form").submit();
             });
 
-            $("#surveyContainer").Survey({model: survey});
+            survey.render(document.getElementById("surveyContainer"));
         } catch (error) {
             console.error("Failed to initialize MovieSurvey JSON:", error);
             document.getElementById("surveyContainer").innerHTML =
