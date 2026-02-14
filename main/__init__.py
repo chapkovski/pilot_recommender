@@ -115,23 +115,14 @@ class C(BaseConstants):
     ]
     NUM_ROUNDS = len(MOVIES)
 
-    AUDIENCE_LEANING_SCALE = [
-        [1, '1 - Much more left-leaning viewers'],
-        [2, '2 - More left-leaning viewers'],
-        [3, '3 - Slightly more left-leaning viewers'],
-        [4, '4 - About equally (or no clear tilt)'],
-        [5, '5 - Slightly more right-leaning viewers'],
-        [6, '6 - More right-leaning viewers'],
-        [7, '7 - Much more right-leaning viewers'],
-    ]
     POLITICAL_VIBE_SCALE = [
-        [1, '1 - Clearly left-leaning vibe'],
+        [1, '1 - Clearly left/progressive-leaning vibe'],
         [2, '2'],
         [3, '3'],
-        [4, '4 - Neutral / mixed'],
+        [4, '4 - Neutral / unclear'],
         [5, '5'],
         [6, '6'],
-        [7, '7 - Clearly right-leaning vibe'],
+        [7, '7 - Clearly right/conservative-leaning vibe'],
     ]
 
 
@@ -145,23 +136,13 @@ class Group(BaseGroup):
 
 class Player(BasePlayer):
     # Per-movie questionnaire
-    predicted_audience_group = models.IntegerField(
-        label='If this movie were released today, which political group would you expect to like it more?',
-        choices=C.AUDIENCE_LEANING_SCALE,
-        widget=widgets.RadioSelect,
-    )
-    average_predicted_audience = models.IntegerField(
-        label='How do you think an average participant would answer this question (the correct answer would increase your bonus): If this movie were released today, which political group would you expect to like it more?',
-        choices=C.AUDIENCE_LEANING_SCALE,
-        widget=widgets.RadioSelect,
-    )
     movie_political_vibe = models.IntegerField(
-        label='What political "vibe" does this movie concept give you?',
+        label="Question 1 - Your judgment: What's the overall vibe of this movie? (1-7)",
         choices=C.POLITICAL_VIBE_SCALE,
         widget=widgets.RadioSelect,
     )
     average_movie_vibe = models.IntegerField(
-        label='How do you think an average participant would answer this question (the correct answer would increase your bonus): What political "vibe" does this movie concept give you?',
+        label="Question 2 - Other participants' judgments: What do you think most other participants will answer for Question 1 for this movie? (1-7)",
         choices=C.POLITICAL_VIBE_SCALE,
         widget=widgets.RadioSelect,
     )
@@ -215,8 +196,6 @@ class MovieSurvey(SurveyJSPage):
         )
 
     def process_survey_data(self, data):
-        self.player.predicted_audience_group = int(data['predicted_audience_group'])
-        self.player.average_predicted_audience = int(data['average_predicted_audience'])
         self.player.movie_political_vibe = int(data['movie_political_vibe'])
         self.player.average_movie_vibe = int(data['average_movie_vibe'])
 

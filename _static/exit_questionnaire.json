@@ -223,19 +223,14 @@
       "name": "p2",
       "elements": [
         {
-          "type": "radiogroup",
+          "type": "rating",
           "name": "political_interest",
           "title": "How interested are you in politics? (1 = Not at all, 7 = Very interested)",
           "isRequired": true,
-          "choices": [
-            "1",
-            "2",
-            "3",
-            "4",
-            "5",
-            "6",
-            "7"
-          ]
+          "rateMin": 1,
+          "rateMax": 7,
+          "rateStep": 1,
+          "displayMode": "buttons"
         }
       ]
     },
