@@ -45,6 +45,10 @@ SESSION_CONFIG_DEFAULTS = dict(
     scale_min=1,
     scale_max=7,
     no_bonus_amount=0.00,
+    for_prolific=False,
+    prolific_base_return_url='https://app.prolific.com/submissions/complete?cc=',
+    prolific_return_code='CW6532UV',
+    prolific_no_id_code='NO_ID',
 )
 
 PARTICIPANT_FIELDS = []

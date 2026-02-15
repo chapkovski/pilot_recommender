@@ -1,8 +1,8 @@
 {
   "showQuestionNumbers": "off",
-  "showProgressBar": "top",
+  "showProgressBar": "off",
   "progressBarType": "pages",
-  "completeText": "Submit movie answers",
+  "completeText": "Submit answers for this movie",
   "showCompletedPage": false,
   "pages": [
     {

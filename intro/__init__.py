@@ -1,4 +1,14 @@
+import logging
+
 from otree.api import *
+
+try:
+    from user_agents import parse as parse_user_agent
+except ImportError:  # pragma: no cover - dependency installed in runtime
+    parse_user_agent = None
+
+
+logger = logging.getLogger(__name__)
 
 
 doc = """
@@ -38,6 +48,17 @@ class Player(BasePlayer):
         label='I understand anonymized data may be used for scientific publication and sharing.'
     )
 
+    # User agent info
+    user_agent_browser = models.StringField(blank=True)
+    user_agent_browser_version = models.StringField(blank=True)
+    user_agent_os = models.StringField(blank=True)
+    user_agent_os_version = models.StringField(blank=True)
+    user_agent_device = models.StringField(blank=True)
+    user_agent_is_bot = models.BooleanField(initial=False)
+    user_agent_is_mobile = models.BooleanField(initial=False)
+    user_agent_is_tablet = models.BooleanField(initial=False)
+    user_agent_is_pc = models.BooleanField(initial=False)
+
 
 class Consent(Page):
     form_model = 'player'
@@ -50,10 +71,28 @@ class Consent(Page):
         'consent_anonymized',
     ]
 
+    def get(self, *args, **kwargs):
+        user_agent_string = self.request.headers.get('User-Agent', '')
+        if parse_user_agent:
+            user_agent = parse_user_agent(user_agent_string)
+            self.player.user_agent_browser = user_agent.browser.family or ''
+            self.player.user_agent_browser_version = user_agent.browser.version_string or ''
+            self.player.user_agent_os = user_agent.os.family or ''
+            self.player.user_agent_os_version = user_agent.os.version_string or ''
+            self.player.user_agent_device = user_agent.device.family or ''
+            self.player.user_agent_is_mobile = bool(user_agent.is_mobile)
+            self.player.user_agent_is_tablet = bool(user_agent.is_tablet)
+            self.player.user_agent_is_pc = bool(user_agent.is_pc)
+            self.player.user_agent_is_bot = bool(user_agent.is_bot)
+        else:
+            logger.warning('user-agents package not installed; User-Agent details were not parsed.')
+            self.player.user_agent_device = user_agent_string[:255]
+        return super().get(*args, **kwargs)
+
     @staticmethod
     def error_message(player: Player, values):
         if not all(values.values()):
-            return 'You must tick all consent boxes to continue.'
+            return "You must answer 'Yes' to each consent item to continue."
 
 
 class Instructions(Page):

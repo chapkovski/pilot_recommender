@@ -2,6 +2,7 @@ import json
 import logging
 
 from otree.api import *
+from starlette.responses import RedirectResponse
 
 
 logger = logging.getLogger(__name__)
@@ -209,4 +210,25 @@ class Completion(Page):
         )
 
 
-page_sequence = [MovieSurvey, Completion]
+class FinalForProlific(Page):
+    @staticmethod
+    def is_displayed(player: Player):
+        return (
+            player.round_number == C.NUM_ROUNDS
+            and player.session.config.get('for_prolific', False)
+            and player.session.config['app_sequence'][-1] == C.NAME_IN_URL
+        )
+
+    def get(self):
+        base_return_url = self.session.config.get(
+            'prolific_base_return_url',
+            'https://app.prolific.com/submissions/complete?cc=',
+        )
+        if not self.participant.label:
+            ending = self.session.config.get('prolific_no_id_code', 'NO_ID')
+        else:
+            ending = self.session.config.get('prolific_return_code', 'CW6532UV')
+        return RedirectResponse(f'{base_return_url}{ending}')
+
+
+page_sequence = [MovieSurvey, Completion, FinalForProlific]
