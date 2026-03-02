@@ -53,6 +53,13 @@ SESSION_CONFIG_DEFAULTS = dict(
 
 PARTICIPANT_FIELDS = []
 SESSION_FIELDS = []
+ROOMS = [
+    dict(
+        name='prolific_room',
+        display_name='Prolific Participants',
+      
+    ),
+]
 
 # ISO-639 code
 # for example: de, fr, ja, ko, zh-hans
