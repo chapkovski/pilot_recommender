@@ -169,10 +169,8 @@ class SurveyJSPage(Page):
                 self.process_survey_data(survey_results)
             except json.JSONDecodeError as exc:
                 logger.error('Invalid SurveyJS JSON on %s: %s', self.__class__.__name__, exc)
-                raise
             except Exception as exc:
                 logger.error('Survey processing failed on %s: %s', self.__class__.__name__, exc)
-                raise
         return super().post()
 
 
@@ -217,18 +215,21 @@ class ExitQuestionnaire(SurveyJSPage):
 
 
 class Completion(Page):
-    pass
+    @staticmethod
+    def vars_for_template(player: Player):
+        return dict(for_prolific=player.session.config.get('for_prolific', False))
 
 
 class FinalForProlific(Page):
     @staticmethod
     def is_displayed(player: Player):
-        return (
-            player.session.config.get('for_prolific', False)
-            and player.session.config['app_sequence'][-1] == C.NAME_IN_URL
-        )
+        prol = player.session.config.get('for_prolific', False)
+        return player.round_number == C.NUM_ROUNDS and prol
 
     def get(self):
+        prol = self.player.session.config.get('for_prolific', False)
+        if not prol:
+            return super().get()
         base_return_url = self.session.config.get(
             'prolific_base_return_url',
             'https://app.prolific.com/submissions/complete?cc=',

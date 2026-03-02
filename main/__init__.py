@@ -1,5 +1,6 @@
 import json
 import logging
+import random
 
 from otree.api import *
 from starlette.responses import RedirectResponse
@@ -114,6 +115,7 @@ class C(BaseConstants):
             image='images/beta_launch.png',
         ),
     ]
+    MOVIE_IDS = list(range(1, len(MOVIES) + 1))
     NUM_ROUNDS = len(MOVIES)
 
     POLITICAL_VIBE_SCALE = [
@@ -136,6 +138,10 @@ class Group(BaseGroup):
 
 
 class Player(BasePlayer):
+    assigned_movie_id = models.IntegerField(blank=True)
+    assigned_movie_title = models.StringField(blank=True)
+    assigned_movie_category = models.StringField(blank=True)
+
     # Per-movie questionnaire
     movie_political_vibe = models.IntegerField(
         label="Question 1 - Your judgment: What's the overall vibe of this movie? (1-7)",
@@ -147,6 +153,38 @@ class Player(BasePlayer):
         choices=C.POLITICAL_VIBE_SCALE,
         widget=widgets.RadioSelect,
     )
+
+
+def creating_session(subsession: Subsession):
+    for player in subsession.get_players():
+        participant = player.participant
+        if subsession.round_number == 1:
+            movie_order_ids = C.MOVIE_IDS.copy()
+            random.shuffle(movie_order_ids)
+            participant.vars['movie_order_ids'] = movie_order_ids
+
+        movie_order_ids = participant.vars.get('movie_order_ids')
+        if not movie_order_ids or len(movie_order_ids) != C.NUM_ROUNDS:
+            movie_order_ids = C.MOVIE_IDS.copy()
+            participant.vars['movie_order_ids'] = movie_order_ids
+            logger.warning(
+                'Participant %s had missing/invalid movie_order_ids; using default order.',
+                participant.code,
+            )
+
+        movie_id = int(movie_order_ids[player.round_number - 1])
+        movie = C.MOVIES[movie_id - 1]
+        player.assigned_movie_id = movie_id
+        player.assigned_movie_title = movie['title']
+        player.assigned_movie_category = movie['category']
+
+
+def get_assigned_movie(player: Player):
+    movie_id = player.assigned_movie_id
+    if not movie_id:
+        movie_order_ids = player.participant.vars.get('movie_order_ids', C.MOVIE_IDS)
+        movie_id = int(movie_order_ids[player.round_number - 1])
+    return movie_id, C.MOVIES[movie_id - 1]
 
 # PAGES
 
@@ -175,12 +213,13 @@ class SurveyJSPage(Page):
 class MovieSurvey(SurveyJSPage):
     @staticmethod
     def vars_for_template(player: Player):
-        movie = C.MOVIES[player.round_number - 1]
+        movie_id, movie = get_assigned_movie(player)
         cfg = player.session.config
         currency = cfg['payment_currency_symbol']
         tolerance = int(cfg['bonus_tolerance_points'])
         return dict(
             movie=movie,
+            movie_id=movie_id,
             movie_number=player.round_number,
             total_movies=C.NUM_ROUNDS,
             movie_image_url=f"/static/{movie['image']}",
